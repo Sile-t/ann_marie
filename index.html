@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Model Portfolio</title>
     <style>
+        /* Global styling for the entire page */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -12,12 +13,14 @@
             background-color: #f2f2f2;
         }
 
+        /* Styling for the header section */
         header {
             background-color: #f8f8f8;
             padding: 20px 0;
             text-align: center;
         }
 
+        /* Styling for the navigation links */
         nav ul {
             list-style: none;
         }
@@ -33,6 +36,7 @@
             font-weight: bold;
         }
 
+        /* Styling for content sections */
         section {
             text-align: center;
             padding: 40px 0;
@@ -44,7 +48,7 @@
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 48px;
         }
 
         h2 {
@@ -56,6 +60,7 @@
             font-size: 18px;
         }
 
+        /* Styling for the image gallery */
         .gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -66,17 +71,41 @@
 
         .gallery img {
             width: 100%;
+            max-height: 100%;
             border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, z-index 0.2s;
+            object-fit: contain;
         }
 
         .gallery img:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
+        }
+
+        /* Styling for the enlarged image */
+        .enlarge {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 2.5s, transform 2.3s;
+        }
+
+        .enlarge img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
+    <!-- Header Section -->
     <header>
         <nav>
             <ul>
@@ -87,25 +116,29 @@
         </nav>
     </header>
 
+    <!-- About Section -->
     <section id="about">
         <div class="content">
-            <h1>Ann Marie Franklin</h1>
+            <h1>Model Name</h1>
             <p>A brief introduction or tagline goes here.</p>
         </div>
     </section>
 
+    <!-- Portfolio Section -->
     <section id="portfolio">
         <h2>Portfolio</h2>
         <div class="gallery">
-            <img src="image5.jpg" alt="Image 1" class="zoom">
+            <!-- Images in the portfolio with the 'zoom' class -->
+            <img src="image1.jpg" alt="Image 1" class="zoom">
             <img src="image2.jpg" alt="Image 2" class="zoom">
             <img src="image3.jpg" alt="Image 3" class="zoom">
             <img src="image4.jpg" alt="Image 4" class="zoom">
-            <img src="image1.jpg" alt="Image 5" class="zoom">
+            <img src="image5.jpg" alt="Image 5" class="zoom">
             <img src="image6.jpg" alt="Image 6" class="zoom">
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact">
         <div class="content">
             <h2>Contact</h2>
@@ -115,13 +148,23 @@
     </section>
 
     <script>
+        // JavaScript to handle image enlargement on click
         const zoomImages = document.querySelectorAll('.zoom');
 
         zoomImages.forEach(image => {
             image.addEventListener('click', () => {
-                image.classList.toggle('enlarge');
+                if (image.classList.contains('enlarge')) {
+                    image.classList.remove('enlarge');
+                } else {
+                    image.classList.add('enlarge');
+                }
             });
         });
+        // Prevent the context menu (right-click) on enlarged images
+        image.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+            });
+
     </script>
 </body>
 </html>
